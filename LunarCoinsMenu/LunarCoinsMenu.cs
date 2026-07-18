@@ -19,7 +19,7 @@ namespace LunarCoinsMenu
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "Bamboooz";
         public const string PluginName = "LunarCoinsMenu";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.0.1";
 
         #region mod
 
@@ -29,7 +29,7 @@ namespace LunarCoinsMenu
 
             try
             {
-                ModSettingsManager.SetModDescription("A Risk of Rain 2 mod that allows you to set your lunar coins to a certain value once, or at the start of each run using Risk of Options.");
+                ModSettingsManager.SetModDescription("A Risk of Rain 2 mod made to modify your Lunar Coins.");
 
                 string pluginDir = Path.GetDirectoryName(Info.Location);
                 string iconPath = Path.Combine(pluginDir, "icon.png");
@@ -76,7 +76,7 @@ namespace LunarCoinsMenu
             }
         }
 
-        private void SetLunarCoins()
+        private static void SetLunarCoins()
         {
             try
             {
@@ -96,7 +96,7 @@ namespace LunarCoinsMenu
                     return;
                 }
 
-                uint amount = (uint)Mathf.Max(0, ModConfig.LunarCoinsAmount.Value);
+                uint amount = (uint) Mathf.Max(0, ModConfig.LunarCoinsAmount.Value);
 
                 localUser.userProfile.coins = amount;
 
@@ -130,7 +130,7 @@ namespace LunarCoinsMenu
                     "General",
                     "Update mode",
                     UpdateMode.Disabled,
-                    "Select whether the game should update your lunar coins once, or on the start of each run, or not."
+                    "Select whether the game should update your lunar coins once, or on the start of each run, or not at all."
                 );
 
                 LunarCoinsAmount = config.Bind(
@@ -141,7 +141,7 @@ namespace LunarCoinsMenu
                 );
 
                 ModSettingsManager.AddOption(new ChoiceOption(ShouldUpdate));
-                ModSettingsManager.AddOption(new IntSliderOption(LunarCoinsAmount, new IntSliderConfig { min = 0, max = int.MaxValue }));
+                ModSettingsManager.AddOption(new IntFieldOption(LunarCoinsAmount, new IntFieldConfig { Min = 0, Max = int.MaxValue }));
             }
         }
 
